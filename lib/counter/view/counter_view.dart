@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_test/Utils/static_objects.dart';
 import 'package:flutter_bloc_test/counter/counter.dart';
 
 /// {@template counter_view}
@@ -19,7 +20,54 @@ class CounterView extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter BLoc test')),
+      appBar: AppBar(
+        title: const Text('Counter BLoc test'),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+                simpleLogger.i('openDrawer');
+              },
+              icon: const Icon(Icons.menu),
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
+      ),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text(
+              'Drawer Header',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+              ),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              simpleLogger.i("on message title tap!");
+            },
+            leading: const Icon(Icons.message),
+            title: const Text('Messages'),
+          ),
+          const ListTile(
+            leading: Icon(Icons.account_circle),
+            title: Text('Profile'),
+          ),
+          const ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+          ),
+        ],
+      )),
       body: Center(
         child: BlocBuilder<CounterCubit, int>(
           builder: (context, state) {
@@ -45,7 +93,8 @@ class CounterView extends StatelessWidget {
           const SizedBox(height: 8),
           FloatingActionButton(
             key: const Key('counterView_twoPower_floatingActionButton'),
-            child: Transform.rotate(angle: pi/4, child: const Icon(Icons.add)),
+            child:
+                Transform.rotate(angle: pi / 4, child: const Icon(Icons.add)),
             onPressed: () => context.read<CounterCubit>().power(),
           )
         ],

@@ -8,7 +8,10 @@ void addLog(String message){}
 
 void main() {
   Bloc.observer = CounterObserver();
-  runApp(const CounterApp());
+  // runApp(const CounterApp());
+  runApp(const MaterialApp(
+    home: CounterApp(),
+  ));
 
 
   //runApp(const MyApp());
