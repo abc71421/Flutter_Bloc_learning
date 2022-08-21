@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_test/Utils/static_objects.dart';
+import 'package:flutter_bloc_test/appDrawer.dart';
 import 'package:flutter_bloc_test/counter/counter.dart';
 
 /// {@template counter_view}
@@ -35,39 +36,7 @@ class CounterView extends StatelessWidget {
           },
         ),
       ),
-      drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Drawer Header',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              simpleLogger.i("on message title tap!");
-            },
-            leading: const Icon(Icons.message),
-            title: const Text('Messages'),
-          ),
-          const ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
-          ),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-          ),
-        ],
-      )),
+      drawer: const AppDrawer(),
       body: Center(
         child: BlocBuilder<CounterCubit, int>(
           builder: (context, state) {
