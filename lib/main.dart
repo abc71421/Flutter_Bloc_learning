@@ -13,6 +13,4 @@ void main() {
     home: CounterApp(),
   ));
 
-
-  //runApp(const MyApp());
 }
